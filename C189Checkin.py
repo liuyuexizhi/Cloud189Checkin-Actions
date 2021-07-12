@@ -1,6 +1,7 @@
 import requests, time, re, rsa, json, base64
 from urllib import parse
 
+
 s = requests.Session()
 
 username = ""
@@ -17,7 +18,7 @@ def main():
         return None
     else:
         pass
-    rand = str(round(time.time()*1000))
+    rand = str(round(time.time()*1500))
     surl = f'https://api.cloud.189.cn/mkt/userSign.action?rand={rand}&clientType=TELEANDROID&version=8.6.3&model=SM-G930K'
     url = f'https://m.cloud.189.cn/v2/drawPrizeMarketDetails.action?taskId=TASK_SIGNIN&activityId=ACT_SIGNIN'
     url2 = f'https://m.cloud.189.cn/v2/drawPrizeMarketDetails.action?taskId=TASK_SIGNIN_PHOTOS&activityId=ACT_SIGNIN'
@@ -146,7 +147,7 @@ def login(username, password):
         print(r.json()['msg'])
         return "error"
     redirect_url = r.json()['toUrl']
-    r = s.get(redirect_url)
+    r = s.get(redirect_url, timeout=5)
     return s
 
 if __name__ == "__main__":
